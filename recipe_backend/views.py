@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from . import verify as vf
 from django.views.decorators.csrf import csrf_exempt
 import json
 
@@ -13,6 +14,7 @@ def help_response(json_response):
 # Create your views here.
 @csrf_exempt
 def respond(request):
+	print(vf.validate_alexa_request(request.META, request.body))
 	request_body = json.loads(request.body)
 	intent = request_body['request']
 	json_response = {'version' : '1.0'}
