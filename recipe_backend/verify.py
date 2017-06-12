@@ -47,10 +47,10 @@ def validate_current_timestamp(value):
     utc_timestamp = pytz.utc.localize(timestamp)
     utc_timestamp_now = pytz.utc.localize(datetime.utcnow())
     delta = utc_timestamp - utc_timestamp_now
-    log.debug("DATE TIME CHECK!")
-    log.debug("Alexa: {0}".format(utc_timestamp))
-    log.debug("Server: {0}".format(utc_timestamp_now))
-    log.debug("Delta: {0}".format(delta))
+    print("DATE TIME CHECK!")
+    print("Alexa: {0}".format(utc_timestamp))
+    print("Server: {0}".format(utc_timestamp_now))
+    print("Delta: {0}".format(delta))
     if abs(delta) > timedelta(minutes=2, seconds=30):
         return False
     else:
