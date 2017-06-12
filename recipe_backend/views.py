@@ -15,8 +15,8 @@ def help_response(json_response):
 def get_recipe(recipeName):
 	web_response = ("http://www.simplyrecipes.com/?s="+recipeName)
 
-def check_intent(json_response):
-	intent = json_response['intent']
+def check_intent(json_response, request):
+	intent = request['intent']
 	if (intent['name'] == 'getRecipe'):
 		recipeSlots = intent['slots']
 		if ('risotto' in recipeSlots):
@@ -35,7 +35,7 @@ def respond(request):
 	if (intent['type'] == 'LaunchRequest'):
 		json_response = help_response(json_response)
 	elif (intent['type'] == 'IntentRequest'):
-		json_response =  help_response(json_response)
+		json_response =  help_response(json_response, intent)
 	elif (intent['type'] == "SessionEndedRequest"):
 		json_response = help_response(json_response)
 
