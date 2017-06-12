@@ -10,7 +10,6 @@ import base64
 import pytz
 from datetime import datetime, timedelta
 from OpenSSL import crypto
-from .exceptions import InternalError
 # Test for python 3
 try:
     from urllib.parse import urlparse
@@ -117,8 +116,8 @@ def validate_alexa_request(request_headers, request_body):
     # I'm going to return 403 forbidden just to be safe (but need to pass a message to the custom error handler,
     # hence why I'm adding an argument when raising the error)
     if validate_current_timestamp(timestamp) is False:
-        raise InternalError("Invalid Request Timestamp", {"error": 400})
+        raise Exception("Invalid Request Timestamp", {"error": 400})
     if verify_cert_url(request_headers.get('HTTP_SIGNATURECERTCHAINURL')) is False:
-        raise InternalError("Invalid Certificate Chain URL", {"error": 400})
+        raise Exception("Invalid Certificate Chain URL", {"error": 400})
     if verify_signature(request_body, request_headers.get('HTTP_SIGNATURE'), request_headers.get('HTTP_SIGNATURECERTCHAINURL')) is False:
-        raise InternalError("Invalid Request Signature", {"error": 400})
+        raise Exception("Invalid Request Signature", {"error": 400})
