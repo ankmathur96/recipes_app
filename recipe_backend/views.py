@@ -8,7 +8,7 @@ def help_response(json_response):
 	response = {}
 	response['shouldEndSession'] = False
 	response['outputSpeech'] = {'type' : "PlainText", 'text' : "Hi! This is Recipes Guru! - you can use to me cook interactively!", 'ssml' : ''}
-	json_response['outputSpeech'] = response
+	json_response['response'] = response
 	return json.dumps(json_response)
 
 # Create your views here.
@@ -24,7 +24,7 @@ def respond(request):
 		json_response =  help_response(json_response)
 	elif (intent['type'] == "SessionEndedRequest"):
 		json_response = help_response(json_response)
-	
+
 	response = HttpResponse(status=200)
 	response['Content-Type'] = 'application/json'
 	print('LOG RESPONSE: ', json_response)
