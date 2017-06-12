@@ -22,7 +22,7 @@ def check_intent(json_response, request):
 	if (intent['name'] == 'getRecipe'):
 		recipeSlots = intent['slots']
 		recipeNames  = recipeSlots['recipeName']
-		if (recipeName['value'] == 'risotto'):
+		if (recipeNames['value'] == 'risotto'):
 			response = {'type' : "PlainText", 'text' : "1. Heat the clam juice and water. 2. Saute shallots. 3. Add the rice to the pot. Stir-fry the rice for 2-3 minutes. 4. Add white wine and stir. 5. Add two ladles of clam juice water mixture. 6 Stirring almost constantly, let this liquid reduce until it is almost gone, then add another ladle of broth. 7. Now add in the shrimp, the parsley, and the remaining tablespoon of butter"}
 		json_response['response'] = response
 		return json.dumps(json_response)
