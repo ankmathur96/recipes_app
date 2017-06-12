@@ -16,6 +16,7 @@ def get_recipe(recipeName):
 	web_response = ("http://www.simplyrecipes.com/?s="+recipeName)
 
 def check_intent(json_response, request):
+	response = {}
 	response['shouldEndSession'] = False
 	intent = request['intent']
 	if (intent['name'] == 'getRecipe'):
@@ -27,7 +28,7 @@ def check_intent(json_response, request):
 	else:
 		response = {'type': "PlainText", 'text': "Sorry. I am unable to tell you a recipe for that"}
 		json_response['response'] = response
-		return json.dumps(json_resonse) 
+		return json.dumps(json_response) 
 
 
 # Create your views here.
