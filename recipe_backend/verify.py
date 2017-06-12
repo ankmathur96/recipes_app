@@ -112,14 +112,13 @@ def validate_alexa_request(request_headers, request_body):
     Validates this is a valid alexa request
     value - a django request object
     """
-    if ALEXA_REQUEST_VERIFICATON is True:
-        timestamp = json.loads(request_body)['request']['timestamp']
-        # For each of the following errors, the alexa service expects an HTTP error code. This isn't well documented.
-        # I'm going to return 403 forbidden just to be safe (but need to pass a message to the custom error handler,
-        # hence why I'm adding an argument when raising the error)
-        if validate_current_timestamp(timestamp) is False:
-            raise InternalError("Invalid Request Timestamp", {"error": 400})
-        if verify_cert_url(request_headers.get('HTTP_SIGNATURECERTCHAINURL')) is False:
-            raise InternalError("Invalid Certificate Chain URL", {"error": 400})
-        if verify_signature(request_body, request_headers.get('HTTP_SIGNATURE'), request_headers.get('HTTP_SIGNATURECERTCHAINURL')) is False:
-            raise InternalError("Invalid Request Signature", {"error": 400})
+    timestamp = json.loads(request_body)['request']['timestamp']
+    # For each of the following errors, the alexa service expects an HTTP error code. This isn't well documented.
+    # I'm going to return 403 forbidden just to be safe (but need to pass a message to the custom error handler,
+    # hence why I'm adding an argument when raising the error)
+    if validate_current_timestamp(timestamp) is False:
+        raise InternalError("Invalid Request Timestamp", {"error": 400})
+    if verify_cert_url(request_headers.get('HTTP_SIGNATURECERTCHAINURL')) is False:
+        raise InternalError("Invalid Certificate Chain URL", {"error": 400})
+    if verify_signature(request_body, request_headers.get('HTTP_SIGNATURE'), request_headers.get('HTTP_SIGNATURECERTCHAINURL')) is False:
+        raise InternalError("Invalid Request Signature", {"error": 400})
